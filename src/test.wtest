@@ -1,0 +1,37 @@
+import clases.*
+
+//-------------------Punto 1---------------------------------
+test "El Estado incauta una propiedad" {
+
+	var casa=fixture.crearCasa(2,50,45)
+	var depto=fixture.crearDepto(50,45,4)
+	
+	estado.incautarPropiedad(casa)
+	estado.incautarPropiedad(depto)
+	
+	assert.equals(2, estado.cantCasasIncautadas())
+
+}
+
+//-------------------Punto 2---------------------------------
+test "Hacer que una persona trabaje"{
+	
+	var casa=fixture.crearCasa(2,50,45)
+	var persona=fixture.crearIntegrante("Fernando", 21, 0, false)
+	
+	persona.trabajaEn(5, casa)
+	
+	assert.equals(5, persona.cantHorasTrabajadas())
+	
+}
+
+test "Hacer que una persona trabaje y no pueda"{
+	
+	var casa=fixture.crearCasa(2,50,45)
+	var persona=fixture.crearIntegrante("Fernando", 14, 0, true)
+	
+	assert.throwsException(persona.trabajaEn(5,casa))
+	//assert.equals(45, casa.horasTrabajoRestantes())
+	
+}
+
