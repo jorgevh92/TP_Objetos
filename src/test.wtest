@@ -4,7 +4,7 @@ import clases.*
 test "El Estado incauta una propiedad" {
 
 	var casa=fixture.crearCasa(2,50,45)
-	var depto=fixture.crearDepto(50,45,4)
+	var depto=fixture.crearDepto(50,45,4)	
 	
 	estado.incautarPropiedad(casa)
 	estado.incautarPropiedad(depto)
