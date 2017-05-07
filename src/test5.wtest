@@ -1,0 +1,78 @@
+import fixture.*
+import tipoDeHabilidades.*
+import estado.*
+
+test "Asignar una propiedad a una familia" {
+
+	var depto=fixture.crearDepto(15,15,50)
+	var casa=fixture.crearCasa(20,50,3)
+	
+	estado.incautarPropiedad(depto)
+	estado.incautarPropiedad(casa)
+
+	var lopez=fixture.crearFamilia()
+		
+	var leandro=fixture.crearPersona("Leandro",32,electricista)
+	var maria=fixture.crearPersona("Maria",30,decoradora)
+	
+	leandro.podesTrabajar(10,depto)
+	maria.podesTrabajar(5,depto)
+	
+	lopez.agregarPersona(leandro)
+	lopez.agregarPersona(maria)
+	
+	depto.podesAsignarA(lopez)
+	
+	assert.equals(1,estado.cantCasasIncautadas())
+
+}
+
+
+test "Una propiedad no puede ser asignada"{
+	
+	var depto=fixture.crearDepto(15,15,25)
+	var casa=fixture.crearCasa(20,50,3)
+	
+	estado.incautarPropiedad(depto)
+	estado.incautarPropiedad(casa)
+
+	var lopez=fixture.crearFamilia()
+		
+	var leandro=fixture.crearPersona("Leandro",32,electricista)
+	var maria=fixture.crearPersona("Maria",30,decoradora)
+	
+	leandro.podesTrabajar(10,depto)
+	maria.podesTrabajar(5,depto)
+	
+	lopez.agregarPersona(leandro)
+	lopez.agregarPersona(maria)
+	
+	assert.throwsException(depto.podesAsignarA(lopez))
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
