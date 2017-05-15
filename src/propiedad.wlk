@@ -5,7 +5,10 @@ class Propiedad {
 
 	var cantHorasRestantes
 	const cantHorasFamilia
-	var familia=[]
+//JFV - INI
+//  var familia=[]
+//JFV-FIN
+	var familia=""
 	const familiasParticipantes=[]
 	
 	constructor(_cantHorasRestantes, _cantHorasFamilia){
@@ -26,7 +29,10 @@ class Propiedad {
 	}
 	
 	method estasOcupada() {
-		return familia.size()>0
+//JFV - INI
+//      return familia.size()>0
+//JFV - FIN		
+		return familia!=""
 	}
 	
 	method descontarHoras(horas){
