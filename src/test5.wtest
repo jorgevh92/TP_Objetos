@@ -23,7 +23,7 @@ test "Asignar una propiedad a una familia" {
 	
 	depto.podesAsignarA(lopez)
 	
-	assert.equals(1,estado.cantCasasIncautadas())
+	assert.equals(1,estado.cantPropiedadesIncautadas())
 
 }
 

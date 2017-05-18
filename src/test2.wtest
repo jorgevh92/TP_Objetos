@@ -22,7 +22,6 @@ test "Hacer que una persona trabaje y no pueda (Menor de 18 años)"{
 	
 }
 
-//JFV - INI
 test "Hacer que una persona trabaje y no pueda (Mayor de 65 años)"{
 	
 	var casa=fixture.crearCasa(45,50,2)
@@ -32,4 +31,3 @@ test "Hacer que una persona trabaje y no pueda (Mayor de 65 años)"{
 	//assert.equals(45, casa.horasTrabajoRestantes())
 	
 }
-//JFV - FIN

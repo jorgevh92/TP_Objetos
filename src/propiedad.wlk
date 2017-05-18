@@ -5,9 +5,6 @@ class Propiedad {
 
 	var cantHorasRestantes
 	const cantHorasFamilia
-//JFV - INI
-//  var familia=[]
-//JFV-FIN
 	var familia=""
 	const familiasParticipantes=[]
 	
@@ -28,10 +25,7 @@ class Propiedad {
 		return self.sosDigna() && !self.estasOcupada()
 	}
 	
-	method estasOcupada() {
-//JFV - INI
-//      return familia.size()>0
-//JFV - FIN		
+	method estasOcupada() {		
 		return familia!=""
 	}
 	
@@ -50,7 +44,7 @@ class Propiedad {
 		if(unaFamilia.estasHabilitada(self)){
 			familia=unaFamilia
 			self.eliminarFamilia(unaFamilia)
-			estado.eliminarCasa(self)
+			estado.eliminarPropiedad(self)
 			
 		}else {
 			

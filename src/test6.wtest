@@ -1,0 +1,35 @@
+import fixture.*
+import estado.*
+import tipoDeHabilidades.*
+
+test "Asignar Propiedades" {
+
+	//-----------Estado Apropia Propiedades------------
+	var casa=fixture.crearCasa(2,50,45)
+	var depto=fixture.crearDepto(50,45,4)	
+	var deptoPalermo=fixture.crearDepto(15,15,50)
+	
+	estado.incautarPropiedad(casa)
+	estado.incautarPropiedad(depto)
+	estado.incautarPropiedad(deptoPalermo)
+	
+	//----------creo la familia Perez--------------
+	var lopez=fixture.crearFamilia()
+		
+	var leandro=fixture.crearPersona("Leandro",32,electricista)
+	var maria=fixture.crearPersona("Maria",30,decoradora)
+	
+	leandro.podesTrabajar(10,deptoPalermo)
+	maria.podesTrabajar(5,deptoPalermo)
+	
+	lopez.agregarPersona(leandro)
+	lopez.agregarPersona(maria)
+		
+	//agrego familias participantes
+	deptoPalermo.agregarFamilia(lopez)
+	
+	estado.asignarPropiedades()
+
+	assert.equals(1,estado.cantPropiedadesIncautadas())
+
+}

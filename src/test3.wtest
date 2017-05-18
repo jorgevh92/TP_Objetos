@@ -19,7 +19,6 @@ test "Una familia puede acceder a una propiedad" {
 
 }
 
-//JFV - INI
 test "Una familia no puede acceder a una propiedad por no ser habilitable" {
 
 	//Asigno a una familia a una propiedad
@@ -91,41 +90,3 @@ test "Una familia no puede acceder a un depto porque el tamaño no es acorde a la
 	assert.notThat(familiaRodriguez.estasHabilitada(depto))
 
 }
-//test "Una familia no puede acceder a una propiedad" {
-//
-//	var depto=fixture.crearDepto(15,15,30)
-//	var familia=fixture.crearFamilia()
-//	var leandro=fixture.crearPersona("Leandro",32,electricista)
-//	var maria=fixture.crearPersona("Maria",30,decoradora)
-//	
-//	leandro.podesTrabajar(10,depto)
-//	maria.podesTrabajar(5,depto)
-//	
-//	familia.agregarPersona(leandro)
-//	familia.agregarPersona(maria)
-//	
-//	assert.notThat(familia.estasHabilitada(depto))
-//
-//}
-
-//test "Una familia no puede acceder a una propiedad asd" {
-//	
-//	var depto=fixture.crearDepto(15,15,50)
-//	
-//	var britos=fixture.crearFamilia()
-//	
-//	var manuel=fixture.crearPersona("Manuel",45,electricista)
-//	var noelia=fixture.crearPersona("Noelia",46,decoradora)
-//	var micaela=fixture.crearPersona("Micaela",18,desordenado)
-//	
-//	manuel.podesTrabajar(8,depto)
-//	noelia.podesTrabajar(5,depto)
-//	micaela.podesTrabajar(10,depto)
-//	
-//	britos.agregarPersona(manuel)
-//	britos.agregarPersona(noelia)
-//	britos.agregarPersona(micaela)
-//	
-//	assert.notThat(britos.estasHabilitada(depto))
-//}
-// JFV - FIN
