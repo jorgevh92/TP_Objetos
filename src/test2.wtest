@@ -17,7 +17,7 @@ test "Hacer que una persona trabaje y no pueda (Menor de 18 años)"{
 	var casa=fixture.crearCasa(45,50,2)
 	var persona=fixture.crearPersona("Fernando", 14, electricista)
 	
-	assert.throwsException(persona.podesTrabajar(5,casa))
+	assert.throwsException(persona.trabajar(5,casa))
 	//assert.equals(45, casa.horasTrabajoRestantes())
 	
 }
@@ -27,7 +27,7 @@ test "Hacer que una persona trabaje y no pueda (Mayor de 65 años)"{
 	var casa=fixture.crearCasa(45,50,2)
 	var persona=fixture.crearPersona("Fernando", 75, electricista)
 	
-	assert.throwsException(persona.podesTrabajar(5,casa))
+	assert.throwsException(persona.trabajar(5,casa))
 	//assert.equals(45, casa.horasTrabajoRestantes())
 	
 }

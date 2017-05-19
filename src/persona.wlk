@@ -19,21 +19,30 @@ class Persona{
 		cantHorasTrabajadas+=habilidad.contabilizarHora(horas)
 	}
 	
-	method cumplisRango(){
-		return edad>=18 && edad<=65
+	method cumplisRangoDeEdad(){
+		
+		if (edad<18){
+			throw new UserException("Persona menor de 18 años, no puede trabajar")
+		}
+		if (edad>65){
+			throw new UserException("Persona mayor de 65 años, no puede trabajar")
+		}
 	}
 	
 	//----------------punto2-------------------------------------
-	method podesTrabajar(horas,propiedad){		
-		if(self.cumplisRango()){
-			
+	method trabajar(horas,unaPropiedad){
+		try{
+			self.cumplisRangoDeEdad()
 			self.aumentarHoras(horas)
-			propiedad.descontarHoras(habilidad.contabilizarHora(horas))		
-		} else{
-			
-			throw new UserException("No puedo trabajar")
+			unaPropiedad.descontarHoras(habilidad.contabilizarHora(horas))
+		} catch e: UserException{
+			self.mostrarMensajeDeAdvertencia(e.getMessage())
 		}
 		
+	}
+	
+	method mostrarMensajeDeAdvertencia(_mensaje){
+		throw new UserException(_mensaje)
 	}
 	
 }

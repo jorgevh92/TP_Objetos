@@ -1,26 +1,25 @@
-
 class Familia {
 
-	const personas=[]
+	const integrantesFamiliares=[]
 	
-	method agregarPersona(persona){
-		personas.add(persona)	
+	method agregarPersona(unaPersona){
+		integrantesFamiliares.add(unaPersona)	
 	}
 	
-	method cantIntegrantes()=return personas.size()
+	method cantIntegrantes()=return integrantesFamiliares.size()
 	
 	//---------Punto3--------------------------------
-	method estasHabilitada(propiedad){
+	method estasHabilitada(unaPropiedad){
 		
-		return propiedad.sosHabitable() && self.superasHorasTrabajadas(propiedad) && propiedad.personasSoportadas()>self.cantIntegrantes()+1		
+		return unaPropiedad.sosHabitable() && self.superasHorasTrabajadas(unaPropiedad) && unaPropiedad.personasSoportadas()>self.cantIntegrantes()+1		
 	}
 	
 	method horasTrabajadas() {	
-		return personas.sum({persona => persona.cantHorasTrabajadas()})
+		return integrantesFamiliares.sum({unaPersona => unaPersona.cantHorasTrabajadas()})
 	}
 	
-	method superasHorasTrabajadas(propiedad){
-		return self.horasTrabajadas() > propiedad.cantHorasFamilia()
+	method superasHorasTrabajadas(unaPropiedad){
+		return self.horasTrabajadas() > unaPropiedad.cantHorasNecesitaRealizarUnaFamilia()
 	}
 	
 }

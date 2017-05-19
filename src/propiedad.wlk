@@ -4,16 +4,16 @@ import excepcion.*
 class Propiedad {
 
 	var cantHorasRestantes
-	const cantHorasFamilia
-	var familia=""
+	var cantHorasNecesitaRealizarUnaFamilia
+	var familiaAsignada=""
 	const familiasParticipantes=[]
 	
-	constructor(_cantHorasRestantes, _cantHorasFamilia){
+	constructor(_cantHorasRestantes, _cantHorasNecesitaRealizarUnaFamilia){
 		cantHorasRestantes=_cantHorasRestantes
-		cantHorasFamilia=_cantHorasFamilia	
+		cantHorasNecesitaRealizarUnaFamilia=_cantHorasNecesitaRealizarUnaFamilia	
 	}
 	
-	method cantHorasFamilia()=cantHorasFamilia
+	method cantHorasNecesitaRealizarUnaFamilia()=cantHorasNecesitaRealizarUnaFamilia
 	
 	method agregarFamilia(unaFamilia){
 		familiasParticipantes.add(unaFamilia)
@@ -26,7 +26,7 @@ class Propiedad {
 	}
 	
 	method estasOcupada() {		
-		return familia!=""
+		return familiaAsignada!=""
 	}
 	
 	method descontarHoras(horas){
@@ -42,7 +42,8 @@ class Propiedad {
 	method podesAsignarA(unaFamilia){
 		
 		if(unaFamilia.estasHabilitada(self)){
-			familia=unaFamilia
+			
+			familiaAsignada=unaFamilia
 			self.eliminarFamilia(unaFamilia)
 			estado.eliminarPropiedad(self)
 			
@@ -55,8 +56,7 @@ class Propiedad {
 	
 	method eliminarFamilia(unaFamilia){
 		familiasParticipantes.remove(unaFamilia)
-	}
-	
+	}	
 
 }
 

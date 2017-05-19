@@ -1,22 +1,27 @@
 object estado{
 	
 	const propiedadesIncautadas=[]
+	const propiedades=[]
 	
 	method cantPropiedadesIncautadas()=propiedadesIncautadas.size()
-	
+
 	//--------------------Punto 1-----------------------------------
-	method incautarPropiedad(propiedad){
-		propiedadesIncautadas.add(propiedad)
+	method incautarPropiedad(unaPropiedad){
+		
+		propiedadesIncautadas.add(unaPropiedad)
+
 	}
 	
-	method eliminarPropiedad(propiedad){
-		propiedadesIncautadas.remove(propiedad)
+	//--------------------Punto 5-----------------------------------
+	method eliminarPropiedad(unaPropiedad){
+		propiedadesIncautadas.remove(unaPropiedad)
 	}
 	
 	//--------------------Punto 6-----------------------------------
 	method asignarPropiedades(){
 		
-		propiedadesIncautadas.forEach({unaPropiedad => 
+		propiedades.addAll(propiedadesIncautadas)
+		propiedades.forEach({unaPropiedad => 
 			var familiasHabilitadas=unaPropiedad.familiasHabilitadas()
 			if (familiasHabilitadas!=[]){
 				unaPropiedad.podesAsignarA(familiasHabilitadas.first())
@@ -26,8 +31,3 @@ object estado{
 	}
 	
 }
-
-
-
-
-

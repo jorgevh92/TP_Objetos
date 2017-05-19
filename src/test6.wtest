@@ -6,7 +6,7 @@ test "Asignar Propiedades" {
 
 	//-----------Estado Apropia Propiedades------------
 	var casa=fixture.crearCasa(2,50,45)
-	var depto=fixture.crearDepto(50,45,4)	
+	var depto=fixture.crearDepto(15,15,50)	
 	var deptoPalermo=fixture.crearDepto(15,15,50)
 	
 	estado.incautarPropiedad(casa)
@@ -24,9 +24,35 @@ test "Asignar Propiedades" {
 	
 	lopez.agregarPersona(leandro)
 	lopez.agregarPersona(maria)
+
+	//----------creo la familia Rodriguez--------------
+	var rodriguez=fixture.crearFamilia()
 		
+	var juan=fixture.crearPersona("Juan",32,electricista)
+	var marcos=fixture.crearPersona("Marcos",30,decoradora)
+	
+	juan.podesTrabajar(10,deptoPalermo)
+	marcos.podesTrabajar(5,deptoPalermo)
+	
+	rodriguez.agregarPersona(juan)
+	rodriguez.agregarPersona(marcos)
+	
+	//----------creo la familia Dominguez--------------
+	var dominguez=fixture.crearFamilia()
+		
+	var pedro=fixture.crearPersona("Juan",32,electricista)
+	var pablo=fixture.crearPersona("Marcos",63,electricista)
+	
+	pedro.podesTrabajar(10,depto)
+	pablo.podesTrabajar(5,depto)
+	
+	dominguez.agregarPersona(pedro)
+	dominguez.agregarPersona(pablo)
+	
 	//agrego familias participantes
-	deptoPalermo.agregarFamilia(lopez)
+	deptoPalermo.agregarFamilia(lopez)		
+	deptoPalermo.agregarFamilia(rodriguez)
+	deptoPalermo.agregarFamilia(dominguez)
 	
 	estado.asignarPropiedades()
 
