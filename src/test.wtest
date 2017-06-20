@@ -1,0 +1,168 @@
+import fixture.*
+import plan_vivienda.estado.*
+
+//Test Punto 1
+test "Test 1 - El Estado incauta una propiedad libre" {
+	
+	var casaLomas=fixture.casaLomas()
+	estado.incautarPropiedad(casaLomas)
+	assert.equals("Incautada", casaLomas.estadoPropiedad())
+
+}
+
+test "Test 2 - El Estado incauta una propiedad ocupada" {
+
+	var deptoPalermo=fixture.deptoPalermo()
+	estado.incautarPropiedad(deptoPalermo)
+	assert.equals("Incautada", deptoPalermo.estadoPropiedad())
+
+}
+
+test "Test 3 - El Estado incauta varias Propiedades" {
+
+	fixture.incautarPropiedades()
+	assert.equals(3, estado.cantPropiedadesIncautadas())
+
+}
+
+//Test Punto 2
+test "Test 4 - Hacer que una persona trabaje"{
+	
+	var fernando=fixture.fernando()
+	var casaLomas=fixture.casaLomas()
+	
+	fernando.trabajar(6, casaLomas)
+	
+	assert.equals(6, fernando.cantHsTrabajadas())
+	
+}
+
+test "Test 5 - Hacer que una persona trabaje y no pueda (Menor de 18 años)"{
+	
+	var carlos=fixture.carlos()
+	var casaLomas=fixture.casaLomas()
+	
+	assert.throwsException(carlos.trabajar(5,casaLomas))
+	
+}
+
+test "Test 6 - Hacer que una persona trabaje y no pueda (Mayor de 65 años)"{
+	
+	var german=fixture.german()
+	var deptoPalermo=fixture.deptoPalermo()
+	
+	assert.throwsException(german.trabajar(5,deptoPalermo))
+	
+}
+
+//Test Punto 3
+test "Test 7 - Una familia puede acceder a una propiedad" {
+	
+	fixture.incautarPropiedades()
+	
+	var deptoPalermo=fixture.deptoPalermo()	
+	var familiaPerez=fixture.perez()
+	fixture.familiaPerez()
+	
+	assert.that(familiaPerez.estasHabilitadaParaAcceder(deptoPalermo))
+
+}
+
+test "Test 8 - Una familia no puede acceder a una propiedad por no ser habilitable" {
+
+	fixture.incautarPropiedades()
+	var deptoPalermo=fixture.deptoPalermo()
+	
+	//Asigno a una familia a una propiedad	
+	var familiaPerez=fixture.perez()
+	fixture.familiaPerez()
+	
+	estado.asignar(familiaPerez,deptoPalermo)
+	
+	//Asigno otra familia a la misma propiedad que a la familia anterior
+	var familiaRodriguez=fixture.rodriguez()
+	fixture.familiaRodriguez()
+	
+	assert.notThat(familiaRodriguez.estasHabilitadaParaAcceder(deptoPalermo))
+
+}
+
+test "Test 9 - Una familia no puede acceder a una propiedad por no cumplir la cant de hs necesarias" {
+
+	fixture.incautarPropiedades()
+	var deptoPalermo=fixture.deptoPalermo()
+	
+	//Asigno a una familia a una propiedad	
+	var familiaRodriguez=fixture.rodriguez()
+	fixture.familiaRodriguez()
+	
+	assert.notThat(familiaRodriguez.estasHabilitadaParaAcceder(deptoPalermo))
+
+}
+
+test "Test 10 - Una familia no puede acceder a un depto porque el tamaño no es acorde a la familia" {
+
+	fixture.incautarPropiedades()
+	var deptoAlmagro=fixture.deptoAlmagro()
+	
+	//Asigno a una familia a una propiedad	
+	var familiaLopez=fixture.lopez()
+	fixture.familiaLopez()
+	
+	assert.notThat(familiaLopez.estasHabilitadaParaAcceder(deptoAlmagro))
+
+}
+
+//Test Punto 4
+test "Test 11 - Una familia puede acceder a una propiedad" {
+
+	fixture.incautarPropiedades()
+	fixture.agregarFamiliasAlPlan()
+	
+	var deptoPalermo=fixture.deptoPalermo()	
+	
+	//Creo familia Perez
+	var familiaPerez=fixture.perez()
+	fixture.familiaPerez()
+	
+	//Creo familia Rodriguez
+	var familiaRodriguez=fixture.rodriguez()
+	fixture.familiaRodriguez()
+	
+	//Creo familia Lopez	
+	var familiaLopez=fixture.lopez()
+	fixture.familiaLopez()
+	
+	assert.equals([familiaPerez,familiaRodriguez], estado.familiasHabilitadasParaAcceder(deptoPalermo))
+	
+}
+
+//Test Punto 5
+test "Test 12 - Asignar una propiedad a una familia" {
+
+	fixture.incautarPropiedades()
+	var deptoPalermo=fixture.deptoPalermo()
+	
+	//Asigno a una familia a una propiedad	
+	var familiaPerez=fixture.perez()
+	fixture.familiaPerez()
+	
+	estado.asignar(familiaPerez,deptoPalermo)
+	
+	assert.equals("Asignada", deptoPalermo.estadoPropiedad())
+	
+}
+
+
+test "Test 13 - Una propiedad no puede ser asignada"{
+
+	fixture.incautarPropiedades()
+	var deptoAlmagro=fixture.deptoAlmagro()
+	
+	//Asigno a una familia a una propiedad	
+	var familiaLopez=fixture.lopez()
+	fixture.familiaLopez()
+	
+	assert.throwsException(estado.asignar(familiaLopez,deptoAlmagro))
+	
+}
