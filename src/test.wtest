@@ -39,20 +39,19 @@ test "Test 4 - Hacer que una persona trabaje"{
 
 test "Test 5 - Hacer que una persona trabaje y no pueda (Menor de 18 años)"{
 	
-	var carlos=fixture.carlos()
-	var casaLomas=fixture.casaLomas()
-	
-	assert.throwsException(carlos.trabajar(5,casaLomas))
-	
-}
-
-test "Test 6 - Hacer que una persona trabaje y no pueda (Mayor de 65 años)"{
-	
 	var german=fixture.german()
 	var deptoPalermo=fixture.deptoPalermo()
 	
 	assert.throwsException(german.trabajar(5,deptoPalermo))
 	
+}
+
+test "Test 6 - Hacer que una persona trabaje y no pueda (Mayor de 65 años)"{
+
+	var carlos=fixture.carlos()
+	var casaLomas=fixture.casaLomas()
+	
+	assert.throwsException(carlos.trabajar(5,casaLomas))	
 }
 
 //Test Punto 3
@@ -125,15 +124,14 @@ test "Test 11 - Una familia puede acceder a una propiedad" {
 	var familiaPerez=fixture.perez()
 	fixture.familiaPerez()
 	
-	//Creo familia Rodriguez
-	var familiaRodriguez=fixture.rodriguez()
-	fixture.familiaRodriguez()
+	//Creo familia Fernandez
+	var familiaFernandez=fixture.fernandez()
+	fixture.familiaFernandez()
 	
-	//Creo familia Lopez	
-	var familiaLopez=fixture.lopez()
+	//Creo familia Lopez
 	fixture.familiaLopez()
 	
-	assert.equals([familiaPerez,familiaRodriguez], estado.familiasHabilitadasParaAcceder(deptoPalermo))
+	assert.equals([familiaPerez,familiaFernandez], estado.familiasHabilitadasParaAcceder(deptoPalermo))
 	
 }
 
@@ -163,6 +161,56 @@ test "Test 13 - Una propiedad no puede ser asignada"{
 	var familiaLopez=fixture.lopez()
 	fixture.familiaLopez()
 	
-	assert.throwsException(estado.asignar(familiaLopez,deptoAlmagro))
+	estado.asignar(familiaLopez,deptoAlmagro)
+	
+}
+
+//Test Punto 6
+test "Test 14 - Asignar Propiedades"{
+
+	fixture.incautarPropiedades()
+	fixture.agregarFamiliasAlPlan()
+	
+	//Creo familia Perez
+	fixture.familiaPerez()
+
+	//Creo familia Rodriguez
+	fixture.familiaRodriguez()
+	
+	//Creo familia Lopez	
+	fixture.familiaLopez()
+	
+	//Creo familia Fernandez
+	fixture.familiaFernandez()
+
+	estado.asignarPropiedades()
+
+	assert.equals(3,estado.cantPropiedadesIncautadas())
+	
+}
+
+test "Test 15 - Asignar Propiedades - No existen Propiedades Habitables"{
+
+	fixture.incautarPropiedades()
+	fixture.agregarFamiliasAlPlan()
+	
+	//Creo familia Rodriguez
+	fixture.familiaRodriguez()
+
+	estado.asignarPropiedades()
+	
+}
+
+test "Test 16 - Asignar Propiedades - No existen Familias Para Asignar a Propiedades Habitables"{
+
+	fixture.incautarPropiedades()
+	fixture.agregarFamiliasAlPlan()
+	
+	//Creo familia Lopez
+	fixture.familiaLopez()
+
+	estado.asignarPropiedades()
+	
+	assert.equals(3,estado.cantPropiedadesIncautadas())
 	
 }

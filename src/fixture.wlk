@@ -31,6 +31,7 @@ object fixture {
 	var familiaPerez = new Familia()
 	var familiaRodriguez = new Familia()
 	var familiaLopez = new Familia()
+	var familiaFernandez = new Familia()
 	
 	method casaLomas()=casaLomas
 	method deptoAlmagro()=deptoAlmagro
@@ -52,11 +53,13 @@ object fixture {
 		estado.agregarFamiliaAlPlan(familiaPerez)
 		estado.agregarFamiliaAlPlan(familiaRodriguez)
 		estado.agregarFamiliaAlPlan(familiaLopez)
+		estado.agregarFamiliaAlPlan(familiaFernandez)
 	}
 	
 	method perez()=familiaPerez
 	method rodriguez()=familiaRodriguez
 	method lopez()=familiaLopez
+	method fernandez()=familiaFernandez
 	
 	method familiaPerez(){
 		familiaPerez.integranteFamiliar(leandro)
@@ -69,6 +72,14 @@ object fixture {
 	method familiaRodriguez(){
 		familiaRodriguez.integranteFamiliar(juan)
 		familiaRodriguez.integranteFamiliar(marcos)
+		
+		juan.trabajar(10,deptoPalermo)
+		marcos.trabajar(5,deptoPalermo)	
+	}
+	
+	method familiaFernandez(){
+		familiaFernandez.integranteFamiliar(juan)
+		familiaFernandez.integranteFamiliar(marcos)
 		
 		juan.trabajar(20,deptoPalermo)
 		marcos.trabajar(25,deptoPalermo)	

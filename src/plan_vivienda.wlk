@@ -6,29 +6,29 @@ package estado{
 	
 	object estado{
 		
-		const planVivienda=[]
-		const propiedadesIncautadas=[]
+		const planVivienda=[] //Concepto: Coleccion
+		const propiedadesIncautadas=[] //Concepto: Coleccion
 		
 		method incautarPropiedad(unaPropiedad){
-			propiedadesIncautadas.add(unaPropiedad)
+			propiedadesIncautadas.add(unaPropiedad) //Concepto: Coleccion
 			unaPropiedad.incautada()
 		}
 		
 		method eliminarPropiedad(unaPropiedad){
-			propiedadesIncautadas.remove(unaPropiedad)
+			propiedadesIncautadas.remove(unaPropiedad) //Concepto: Coleccion
 		}
 		
 		method agregarFamiliaAlPlan(unaFamilia){
-			planVivienda.add(unaFamilia)
+			planVivienda.add(unaFamilia) //Concepto: Coleccion
 		}
 		
 		method eliminarFamiliaDelPlan(unaFamilia){
-			planVivienda.remove(unaFamilia)
+			planVivienda.remove(unaFamilia) //Concepto: Coleccion
 		}
 		
-		method cantPropiedadesIncautadas()=propiedadesIncautadas.size()
+		method cantPropiedadesIncautadas()=propiedadesIncautadas.size() //Concepto: Coleccion
 		
-		method familiasHabilitadasParaAcceder(unaPropiedad)=planVivienda.filter({unaFamilia=>unaFamilia.estasHabilitadaParaAcceder(unaPropiedad)})
+		method familiasHabilitadasParaAcceder(unaPropiedad)=planVivienda.filter({unaFamilia=>unaFamilia.estasHabilitadaParaAcceder(unaPropiedad)}) //Concepto: Coleccion
 		
 		method asignar(unaFamilia,unaPropiedad){
 			if(unaFamilia.estasHabilitadaParaAcceder(unaPropiedad)){
@@ -36,24 +36,28 @@ package estado{
 				self.eliminarFamiliaDelPlan(unaFamilia)
 				self.eliminarPropiedad(unaPropiedad)
 			}else {
-				throw new UserException("No se puede asignar la propiedad")
+				throw new UserException("No se puede asignar la propiedad") //Concepto: Manejo de Excepciones
 			}
 		}
+
+		method propiedadesHabitables()=propiedadesIncautadas.filter({unaPropiedad => unaPropiedad.sosHabitable()})
 		
-		/*
-		 * 
-		 * method asignarPropiedades(){
-		
-		propiedades.addAll(propiedadesIncautadas)
-		propiedades.forEach({unaPropiedad => 
-			var familiasHabilitadas=unaPropiedad.familiasHabilitadas()
-			if (familiasHabilitadas!=[]){
-				unaPropiedad.podesAsignarA(familiasHabilitadas.first())
+		method asignarPropiedades(){
+			
+			var propiedadesHabitables = self.propiedadesHabitables()
+
+ 			if (propiedadesHabitables==[]){
+				throw new UserException("No hay propiedades habitables para asignar") //Concepto: Manejo de Excepciones
+			}else{
+				propiedadesHabitables.forEach({unaPropiedad => 
+					var unaFamilia=self.familiasHabilitadasParaAcceder(unaPropiedad)
+					if (unaFamilia!=[]){
+						self.asignar(unaFamilia.first(),unaPropiedad)
+					}
+				})
 			}
-		})
+			
 		}
-		 * 
-		 */
 		
 	}
 	
@@ -99,14 +103,14 @@ package propiedad{
 		method sosDigna()=(cantHsPendienteParaSerHabitable==0)
 		method estasOcupada()=(familiaOcupante!="")
 		
-		method tamanioAcorde(unaFamilia)=self.personaSoportadas()>=unaFamilia.cantIntegrantes()&&self.personaSoportadas()<=unaFamilia.cantIntegrantes()+1
+		method tamanioAcorde(unaFamilia)=self.personasSoportadas()>=unaFamilia.cantIntegrantes()&&self.personasSoportadas()<=unaFamilia.cantIntegrantes()+1
 		
-		method personaSoportadas()
+		method personasSoportadas()
 		
 	}
 	
 	
-	class Casa inherits Propiedad{
+	class Casa inherits Propiedad{ //Clase Polimorfica
 		
 		var ambientes
 		
@@ -114,11 +118,11 @@ package propiedad{
 			ambientes=_ambientes
 		}
 		
-		override method personaSoportadas()=ambientes
+		override method personasSoportadas()=ambientes
 		
 	}
 	
-	class Departamento inherits Propiedad{
+	class Departamento inherits Propiedad{ //Clase Polimorfica
 
 		var superficie
 		
@@ -126,7 +130,7 @@ package propiedad{
 			superficie=_superficie
 		}
 		
-		override method personaSoportadas()=superficie/15
+		override method personasSoportadas()=superficie/15
 	}
 	
 }
@@ -156,11 +160,11 @@ package persona{
 		method cumplisRangoDeEdad(){
 			
 			if (edad<18){
-				throw new UserException("Persona menor de 18 años, no puede trabajar")
+				throw new UserException("Persona menor de 18 años, no puede trabajar") //Concepto: Manejo de Excepciones
 			}
 			
 			if (edad>65){
-				throw new UserException("Persona mayor de 65 años, no puede trabajar")
+				throw new UserException("Persona mayor de 65 años, no puede trabajar") //Concepto: Manejo de Excepciones
 			}
 			
 		}
@@ -171,7 +175,7 @@ package persona{
 				self.aumentarHoras(habilidad.contabilizarHora(horas))
 				unaPropiedad.descontarHoras(habilidad.contabilizarHora(horas))
 			} catch e: UserException{
-				self.mostrarMensajeDeAdvertencia(e.getMessage())
+				self.mostrarMensajeDeAdvertencia(e.getMessage()) //Concepto: Manejo de Excepciones
 			}
 		}
 	
@@ -186,11 +190,11 @@ package familia{
 	
 	class Familia{
 		
-		const integrantesFamiliares=[]
+		const integrantesFamiliares=[] //Concepto: Coleccion
 		var representanteFamiliar
 		
 		method integranteFamiliar(integrante){
-			integrantesFamiliares.add(integrante)
+			integrantesFamiliares.add(integrante) //Concepto: Coleccion
 		}
 		
 		method representanteFamiliar(_representanteFamiliar){
@@ -203,9 +207,10 @@ package familia{
 		
 		method cumplisHsNecesariasParaAcceder(unaPropiedad)=(unaPropiedad.cantHsNecesitaRealizarUnaFamilia()==self.hsTrabajadasEnFamilia())
 		
-		method hsTrabajadasEnFamilia()=integrantesFamiliares.sum({persona => persona.cantHsTrabajadas()})
+		method hsTrabajadasEnFamilia()=integrantesFamiliares.sum({persona => persona.cantHsTrabajadas()}) //Concepto: Coleccion
 		
-		method cantIntegrantes()=integrantesFamiliares.size()
+		method cantIntegrantes()=integrantesFamiliares.size() //Concepto: Coleccion
+		
 	}
 	
 }
@@ -217,25 +222,25 @@ package tipoDeHabilidades{
 	}
 	
 	//-----------------Defino los tipos de habilidades--------------------
-	object electricista inherits TipoDeHabilidades{
+	object electricista inherits TipoDeHabilidades{ //Objeto Polimorfico
 		override method contabilizarHora(horas){		
 			return horas*1.20
 		}
 	}
 
-	object decoradora inherits TipoDeHabilidades{
+	object decoradora inherits TipoDeHabilidades{ //Objeto Polimorfico
 		override method contabilizarHora(horas){		
 			return horas*2
 		}
 	}
 
-	object desordenado inherits TipoDeHabilidades{
+	object desordenado inherits TipoDeHabilidades{ //Objeto Polimorfico
 		override method contabilizarHora(horas){		
 			return horas*0.75
 		}
 	}
 
-	object normal inherits TipoDeHabilidades{
+	object normal inherits TipoDeHabilidades{ //Objeto Polimorfico
 		override method contabilizarHora(horas)=horas
 	}
 
